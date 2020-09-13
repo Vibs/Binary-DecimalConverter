@@ -1,5 +1,4 @@
 package com.company;
-import java.sql.SQLOutput;
 import java.util.*; // Scanner
 import java.lang.Math; // for pow() - to raise a number to the power of ...
 
@@ -7,7 +6,7 @@ public class Converter
 {
     Scanner scanner = new Scanner(System.in);
     
-    public int requestDecNum()
+    public int requestDecNum() // DONE
     {
         int decNum = 0;
         
@@ -26,7 +25,7 @@ public class Converter
         }
     }
     
-    public String requestBinNum()
+    public String requestBinNum() // DONE
     {
         while(true) // hopper ud, hvis brugeren har indtastet korrekt binært tal
         {
@@ -54,7 +53,7 @@ public class Converter
     }
     
     // POS Decimal --> Binary
-    public String convertPosDec(int decNum) // kunne evt. navngives toBinary
+    public String convertPosDec(int decNum) // DONE
     {
         // Binær-String som returneres
         String binNum = "";
@@ -71,8 +70,20 @@ public class Converter
         return binNum;
     }
     
+    // NEG Decimal --> Binary
+    public String convertNegDec(int decNum) // DONE
+    {
+        int decNumInPos = decNum - (2 * decNum); // finder tallets positive værdi
+        
+        String binNumPos = convertPosDec(decNumInPos); // finder det binære tal for positiv værdi (decNumInPos)
+        
+        String reversedBinNumPos = reverseBinNum(binNumPos); // omvender alle 0 --> 1 og 1 --> 0
+        
+        return add1ToBinNum(reversedBinNumPos); // tilføjer 1 til resultatet og returnerer
+    }
+    
     // POS Binary --> Decimal
-    public int convertPosBin(String binNum) // kunne evt. navngives toDecimal
+    public int convertPosBin(String binNum) // DONE
     {
         int decNum = 0; // defineres i dette scope, fordi den returneres i dette scope
         
@@ -104,20 +115,74 @@ public class Converter
     }
     
     // NEG Decimal --> Binary
-    public String convertNegDec(int decNum)
+    public int convertNegBin(String binNum) // DONE
     {
-        String binNum = "";
+        // int decNum = 0;
         
+        String reversedBinNum = reverseBinNum(binNum); // reverser det binære tal
         
-        return binNum;
+        String posBinNum = 0 + add1ToBinNum(reversedBinNum); // adder 1 == finder posBinNum OG + 0 fordi positivt tal
+        
+        int posDecNum = convertPosBin(posBinNum); // konverter posBinNum til posDecNum
+    
+        System.out.println(posDecNum - posDecNum - posDecNum);
+        
+        return posDecNum - posDecNum - posDecNum; // omvender positiv decNum-værdi til negativ decNum-værdi
     }
     
-    // NEG Decimal --> Binary
-    public int convertNegBin(String binNum) // TODO
+    public String reverseBinNum(String binNum) // DONE
     {
-        int decNum = 0;
+        String reversedBinNum = "";
         
+        int stringLength = binNum.length();
         
-        return decNum;
+        for(int i = 0; i < stringLength; i++) // 0 --> 1  OG  1 --> 0
+        {
+            // TODO overvej at tilføje StringBuilder i stedet
+            reversedBinNum += ((binNum.charAt(i) + 1) % 2); // omvernder værdien der findes på binNum.charAt(i)
+            
+            /* Der står det samme her
+            if(binNum.charAt(i) == '1') // hvis
+            {
+                reversedBinNum += 0;
+            }
+            else // if(binNum.charAt(i) == '0')
+            {
+                reversedBinNum += 1; //
+            }
+            */
+        }
+        return reversedBinNum;
     }
+    
+    public String add1ToBinNum(String binNum) // DONE
+    {
+        // System.out.println("TEST 2: " + binNum);
+        String updatedBinNum = "";
+        int stringLength = binNum.length();
+        
+        int carryOver = 1; // startværdi 1 fordi vi skal plusse med 1
+        
+        for(int i = stringLength - 1; i >= 0; i--) // starter på bagerste tal
+        {
+            int addition = Character.getNumericValue(binNum.charAt(i)) + carryOver; // finder ud af om der er en ny
+            // carryover + parser char til int
+            
+            if(addition > 1) // så skal der stadig være 1 carryover og så skal loopet køres igen
+            {
+                updatedBinNum = 0 + updatedBinNum;
+            }
+            else
+            {
+                if(addition == 1) // result giver
+                {
+                    updatedBinNum = 1 + updatedBinNum;
+                }
+                updatedBinNum = binNum.substring(0, i) + updatedBinNum;
+                break; // fra for-loop
+            }
+        }
+        return updatedBinNum;
+    }
+    
 }

@@ -9,6 +9,8 @@ public class Main
         Scanner scanner = new Scanner(System.in);
         Print print = new Print();
         Converter converter = new Converter();
+    
+        // System.out.println((charAt(i) + 1) % 2);
         
         print.welcomeMessage();
         
