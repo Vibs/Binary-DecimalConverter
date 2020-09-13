@@ -12,23 +12,36 @@ public class Main
         
         print.welcomeMessage();
         
-        // gemmer typen de vil converte FRA
+        // gemmer typen de vil convertere FRA
 	    String fromType = print.findFromType();
-	    // gemmer typen de vil converte TIL
-	    String toType = converter.findToType(fromType);
 	    
 	    print.chooseNumberToConvert(fromType);
 	    
 	    // få værdien de vil converte i int
         if(fromType.equalsIgnoreCase("decimal"))
         {
-            int fromNumberInt = converter.requestDecimalNumber();
-            System.out.println("The decimal number: " + fromNumberInt + " is: " + converter.convertNumber(fromNumberInt) + " in binary.");
+            int decNum = converter.requestDecNum();
+            
+            if(decNum >= 0) // if positiv: Brug metode til positive tal
+            {
+                System.out.println("The decimal number: " + decNum + " is: " + converter.convertPosDec(decNum)
+                                           + " in binary.");
+            }
+            else // if negativ: brug metode for negative tal
+            {
+                System.out.println("The decimal number: " + decNum + " is: " + converter.convertNegativeDecimal(decNum)
+                                           + " in binary.");
+            }
         }
-        else if(fromType.equalsIgnoreCase("binary"))
+        
+        else // if(fromType.equalsIgnoreCase("binary"))
         {
-            String fromNumberString = scanner.nextLine();
-            System.out.println("\nThe binary number: " + fromNumberString + " is: " + converter.convertNumber(fromNumberString) + " in decimal.");
+            String binNum = scanner.nextLine();
+            
+            //if()
+            
+            System.out.println("\nThe binary number, " + binNum + ", is: " + converter.convertPosBin(binNum) +
+                                       " in decimal.");
         }
     
 	    // convert int-værdien til en String
