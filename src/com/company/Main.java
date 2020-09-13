@@ -20,28 +20,34 @@ public class Main
 	    // få værdien de vil converte i int
         if(fromType.equalsIgnoreCase("decimal"))
         {
-            int decNum = converter.requestDecNum();
+            int decNum = converter.requestDecNum(); // metode håndterer wrong input
             
-            if(decNum >= 0) // if positiv: Brug metode til positive tal
+            if(decNum >= 0) // if positiv: convertPosDec
             {
-                System.out.println("The decimal number: " + decNum + " is: " + converter.convertPosDec(decNum)
+                System.out.println("The decimal number " + decNum + " is: " + converter.convertPosDec(decNum)
                                            + " in binary.");
             }
-            else // if negativ: brug metode for negative tal
+            else // if negativ: convertNegDec
             {
-                System.out.println("The decimal number: " + decNum + " is: " + converter.convertNegativeDecimal(decNum)
+                System.out.println("The decimal number " + decNum + " is: " + converter.convertNegDec(decNum)
                                            + " in binary.");
             }
         }
         
         else // if(fromType.equalsIgnoreCase("binary"))
         {
-            String binNum = scanner.nextLine();
+            String binNum = converter.requestBinNum(); // metode håndterer wrong input
             
-            //if()
-            
-            System.out.println("\nThe binary number, " + binNum + ", is: " + converter.convertPosBin(binNum) +
-                                       " in decimal.");
+            if(binNum.charAt(0) == '0') // if positiv: convertPosBin
+            {
+                System.out.println("\nThe binary number " + binNum + " is: " + converter.convertPosBin(binNum) +
+                                           " in decimal.");
+            }
+            else // if(binNum.charAt(0) == '1') // if negativ: convertNegBin
+            {
+                System.out.println("\nThe binary number " + binNum + " is: " + converter.convertNegBin(binNum) +
+                                           " in decimal.");
+            }
         }
     
 	    // convert int-værdien til en String

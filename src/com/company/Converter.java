@@ -1,4 +1,5 @@
 package com.company;
+import java.sql.SQLOutput;
 import java.util.*; // Scanner
 import java.lang.Math; // for pow() - to raise a number to the power of ...
 
@@ -8,23 +9,49 @@ public class Converter
     
     public int requestDecNum()
     {
-        int fromNumber = 0;
+        int decNum = 0;
         
         while(true) // fortsæt så længe brugen indtaster forkert
         {
             try
             {
-              fromNumber = scanner.nextInt();
-              return fromNumber;
+                decNum = scanner.nextInt();
+              return decNum;
             }
             catch(Exception e)
             {
-              System.out.print("Wrong input. You must enter an integer value: ");
+              System.out.print("\t\tOOPS, wrong input.\nYou must enter an integer value: ");
               scanner.next(); // clearer scanner of old wrong input - sletter det forkerte input
             }
         }
     }
     
+    public String requestBinNum()
+    {
+        while(true) // hopper ud, hvis brugeren har indtastet korrekt binært tal
+        {
+            String binNum = scanner.nextLine();
+    
+            int stringLength = binNum.length();
+    
+            for(int i = 0; i < stringLength; i++) // checker hver char
+            {
+                if(binNum.charAt(i) == '0' || binNum.charAt(i) == '1')
+                {
+                    if(i == stringLength - 1) // if sidste char i binNum er 0 || 1 == hele tallet godkendt som binær
+                    {
+                        return binNum;
+                    }
+                }
+                else
+                {
+                    System.out.print("\t\tOOPS, wrong input.\nYou have to enter a valid binary number," +
+                            " consisting of only 0's and 1's.\nPlease enter a valid binary number: ");
+                    break; // fra loopet, og indtast binNum igen
+                }
+            }
+        }
+    }
     
     // POS Decimal --> Binary
     public String convertPosDec(int decNum) // kunne evt. navngives toBinary
@@ -76,11 +103,21 @@ public class Converter
         return decNum;
     }
     
-    public String convertNegativeDecimal(int decNum)
+    // NEG Decimal --> Binary
+    public String convertNegDec(int decNum)
     {
         String binNum = "";
         
         
         return binNum;
+    }
+    
+    // NEG Decimal --> Binary
+    public int convertNegBin(String binNum) // TODO
+    {
+        int decNum = 0;
+        
+        
+        return decNum;
     }
 }

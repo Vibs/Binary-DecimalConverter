@@ -30,7 +30,7 @@ public class Print
                 return fromType;
             }
             
-            System.out.print("\t\t\tWrong input :'( \nYou have to choose either binary or decimal: ");
+            System.out.print("\t\tOOPS, wrong input.\nYou have to choose either binary or decimal: ");
         }
     }
     
